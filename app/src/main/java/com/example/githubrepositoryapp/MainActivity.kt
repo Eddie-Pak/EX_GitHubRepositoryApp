@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.githubrepositoryapp.model.Repo
+import com.example.githubrepositoryapp.model.UserDto
 import com.example.githubrepositoryapp.network.GithubService
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,10 +25,20 @@ class MainActivity : AppCompatActivity() {
         val githubService = retrofit.create(GithubService::class.java)
         githubService.listRepos("square").enqueue(object: Callback<List<Repo>> {
             override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-                Log.e("MainActivity", response.body().toString())
+                Log.e("MainActivity", "List Repo: ${response.body().toString()}")
             }
 
             override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
+
+            }
+
+        })
+        githubService.searchUsers("squar").enqueue(object: Callback<UserDto> {
+            override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
+                Log.e("MainActivity", "Search User: ${response.body().toString()}")
+            }
+
+            override fun onFailure(call: Call<UserDto>, t: Throwable) {
 
             }
 
